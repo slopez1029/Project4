@@ -1,0 +1,94 @@
+<html>
+<head>
+
+</head>
+<body>
+
+Make an account here! 
+
+<!--Input for new payer, requires *username *password *groupName *yesNoCheck (joining existing group)
+	*groupAdmin (if yes)-->
+ <form action="CreatePayer.php" method="post" id="frontEnd" name = "form1" onsubmit = "return required()">
+
+ <input type="text" name="user" id="user" placeholder="Username"/>
+ <input type="text" name="password" id="password" placeholder="Password"/>
+ <br><br>
+ Group Name:<input type="text" name="groupName" id="groupName" />
+ <br>
+ <br>
+ <h4>Are you joining an existing group?<h4>
+ 
+  Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck"> 
+  No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck" checked ="checked"><br>
+  
+  <div id="ifYes" style="display:none">
+  Please enter the username of who started the group: <input type='text' id='groupAdmin' name='groupAdmin' placeholder='Group Admin'><br>
+  </div>        
+ <br><br>
+ <input type="submit" value="Create Account" />  
+ 
+ </form>
+
+<script>
+
+/**
+ * Checks to make sure the form for new payers is correctly filled out before it is stored
+ * @pre input sent to be checked 
+ * @post returns bool for input validity
+ * @param password, user, groupName, groupAdmin (as retrieved from form)
+ */
+function required()  
+{  
+    var password = document.forms["form1"]["password"].value;  
+    var user = document.forms["form1"]["user"].value; 
+    var groupName = document.forms["form1"]["groupName"].value;
+    var groupAdmin = document.forms["form1"]["groupAdmin"].value;
+    
+    if (user == "")
+    {
+        alert("Please enter a user");
+        return false;
+    }
+    else if (password == "")  
+    {  
+    alert("Please enter a password");  
+    return false;  
+    }
+    else if (groupName == "")  
+    {  
+    alert("Please enter a name for the group");  
+    return false;  
+    }      
+    else if (document.getElementById('yesCheck').checked) 
+    {
+        if (groupAdmin == "")
+        {
+            alert("Please enter the group administrator's username");
+            return false;
+        }
+    }
+  
+    return true;   
+ 
+}  
+
+/**
+ * Expandable input boxes for when a new group needs to be formed
+ * @pre either option is selected
+ * @post displays extra input boxes
+ * @param yesCheck, bool for if yes is selected
+ */
+ function yesnoCheck() 
+ {
+    if (document.getElementById('yesCheck').checked) {
+        document.getElementById('ifYes').style.display = 'block';
+    }
+    else document.getElementById('ifYes').style.display = 'none';
+
+  }
+
+</script>
+
+</body>
+
+</html>

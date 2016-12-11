@@ -1,0 +1,102 @@
+<?php
+/*
+*	View session, ensure user logged in
+*/
+include('Session.php');
+
+if($_SESSION['GroupAdmin'] == '')
+{
+	header('Location: Home.html');
+}
+?>
+
+<html>
+<body>
+<!--Create table updated to stored database information-->
+<form action="RemoveBill.php" method="post" id="table" name = "form" >
+<h1>Welcome <?php echo $_SESSION['PayerID']; ?></h1> 
+      <table >
+      <thead>
+      <col width="250">
+      <col width="100">
+      <col width="100">
+      <col width="100">
+      <col width="100">
+        <tr>
+          <th align = "left">Bills </th>
+          <th align = "left">Total Due </th>
+          <th align = "left">Total Paid </th>
+          <th align = "left">Due Date</th>
+          <th align = "left">Bill Payer</th>
+          <th align = "left">Remove?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php include 'Bills.php';?>
+      </tbody>
+    </table>
+    <br>
+	<!--formatted as a checklist to allow for remove function-->
+    <input type="submit" value="Remove Bill(s)" />  
+</form>   
+<br><br><br>
+
+
+
+
+Add New Bill 
+<!--Input form for new bills, requires *name *amount *due date-->
+<form action="CreateBill.php" method="post" id="frontEnd" name = "form1" onsubmit = "return required()">
+<br>
+  &nbsp;&nbsp;<input type="text" name="name" id="name" placeholder="Name of Bill"/>
+  <br><br>
+ $ <input type="number" name="totalDue" id="totalDue" pattern="[0-9]*" placeholder = "Total due" >
+ <input type="date" name="dueDate" id="dueDate" min="<?php echo date('Y-m-d'); ?>"/>
+ 
+<br><br>
+
+<input type="submit" value="Add Bill" class = "button" />  
+</form>
+<br>
+
+<p><a href="Home.html">Home</a></p>
+
+<script>
+
+/**
+ * Checks to make sure the form for new bills is correctly filled out before it is stored
+ * @pre form is filled out
+ * @post returns bool for input validity
+ * @param name, totalDue, dueDate (as retrieved from form input)
+ */
+function required()  
+{  
+    var name = document.forms["form1"]["name"].value;
+    var totalDue = document.forms["form1"]["totalDue"].value;  
+    var dueDate = document.forms["form1"]["dueDate"].value; 
+    
+    if (name == "")
+    {
+        alert("Please enter a name for the bill");
+        return false;
+    }
+    else if (totalDue == "")
+    {
+        alert("Please enter the total amount due");
+        return false;
+    }
+    else if (dueDate == "")  
+    {  
+        alert("Please enter the due date");  
+        return false;  
+    }  
+  
+    return true;   
+ 
+}  
+
+</script>
+
+</body>
+
+</html>

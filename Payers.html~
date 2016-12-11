@@ -1,0 +1,75 @@
+<?php
+
+include('Session.php');
+
+if($_SESSION['GroupAdmin'] == '')
+{
+	header('Location: Home.html');
+}
+?>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bill Payers</title>
+</head>
+<body>
+<!--Form lists stored payers with option to choose and remove-->
+<form action="RemovePayer.php" method="post" id="table" name = "form" >
+<h1>Welcome <?php echo $_SESSION['PayerID']; echo ", "; echo $_SESSION['GroupName'];?></h1> 
+      <table >
+      <thead>
+      <col width = "225" >
+        <tr>
+          <th align = "left">Bill Payers </th>
+          <th>Remove?<th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php include 'Payers.php';?>
+      </tbody>
+    </table>
+    <br>
+    <input type="submit" value="Remove Payer(s)" />  
+</form>    
+<br><br><br>
+
+
+
+    Add New Bill Payer
+<!--Form allows new payer to be added to group-->	
+<form action="AddPayer.php" method="post" id="frontEnd" name = "form1" onsubmit = "return required()">
+<br>
+  <input type="text" name="payerID" id="payerID" placeholder="New Payer Username"/>
+  <br><br>
+
+<input type="submit" value="Add Payer" class = "button" />  
+</form>
+
+
+<script>
+
+/**
+ * Checks to make sure the form for adding payers is correctly filled out before it is stored
+ * @pre input sent to be checked 
+ * @post returns bool for input validity
+ * @param userName for payer to be added
+ */
+function required()  
+{  
+    var payerID = document.forms["form1"]["payerID"].value;
+    
+    if (payerID == "")
+    {
+        alert("Please enter the username of who you wish to add to the group");
+        return false;
+    }
+  
+    return true;   
+ 
+}  
+
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,52 @@
+<html>
+<body>
+
+<!--Form to allow existing users to log in-->
+<form action="Login.php" method="post" id="frontEnd" name = "form1" onsubmit = "return required()">
+
+ <input type="text" name="user" id="user" placeholder="Username"/>
+ <input type="text" name="password" id="password" placeholder="Password"/>
+<br>
+
+<input type="submit" value="Login" />  
+</form>
+<br>
+<br>
+
+<!--Take new users to create account page-->
+<form action="CreatePayer.html" method="post" id="frontEnd" name = "form1" >
+<input type="submit" value="Create Account" />  
+</form>
+
+<script>
+
+/**
+ * Checks to make sure the form for new users is correctly filled out before it is stored
+ * @pre input sent to be checked 
+ * @post returns bool for input validity
+ * @param password, user(as retrieved from form)
+ */
+function required()  
+{  
+    var password = document.forms["form1"]["password"].value;  
+    var user = document.forms["form1"]["user"].value; 
+    
+    if (user == "")
+    {
+        alert("Please enter a user");
+        return false;
+    }
+    else if (password == "")  
+    {  
+    alert("Please enter a password");  
+    return false;  
+    }      
+  
+    return true;   
+ 
+}  
+</script>
+
+</body>
+
+</html>

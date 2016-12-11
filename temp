@@ -1,0 +1,102 @@
+<!--<?php
+/*
+*	View session
+*/
+   include('Session.php');
+?>-->
+<html>
+<body>
+<h1>Welcome </h1> 
+<p><a href="Payers.html">Payers </a></p>
+<p><a href="Bills.html">Group Bills</a></p>
+<p><a href="UserBills.html">Personal Bills</a></p>
+<p><a href="PaidBills.html">Paid Bills</a></p>
+<p><a href="Receipts.html">Receipts</a></p>
+<p><a href="Notifications.html">Notifications</a></p>
+<p><a href="Logout.php">Log Out</a></p>
+
+<br><br><br>
+
+<!--Form to choose and pay a bill
+<form action="Pay.php" method="post" id="frontEnd" name = "form1" onsubmit = "return required()" >
+<select name = "selectOption">
+
+    <?php
+    /**
+	* sql configuration
+	*/
+    $mysqli = new mysqli("mysql.eecs.ku.edu", "slopez", "Password123!", "slopez");
+    
+    /**
+	*	Check to see if SQL server is properly connected
+	*/
+    if ($mysqli->connect_errno) 
+    {
+        printf("Connect failed: %s\n", $mysqli->connect_error);
+        exit();
+    }
+    
+	/**
+	 * Allows for reading of stored session variables, and for ability to store session variables
+	 */
+    session_start();
+    $groupAdmin = $_SESSION['GroupAdmin'];
+    $payerID = $_SESSION['PayerID'];
+	/*
+	*	Queries list of group specific bills
+	*/
+    $query = "SELECT Name FROM UserBills WHERE PayerID = '$payerID' AND GroupAdmin = '$groupAdmin'";
+    if ($result = $mysqli->query($query)) 
+    {        
+        /* fetch associative array */
+        while ($row = $result->fetch_assoc()) 
+        {                
+            echo 
+            "            
+            <option value={$row['Name']}>{$row['Name']}</option>                        
+            ";                                                
+        }
+
+        /* free result set */
+        $result->free();
+    }
+    ?>
+</select>
+<br>
+<br>
+Enter how much you'd like to pay for this bill: $  <input type="number" step= 0.01 min = 0 name="totalPaid" id="totalPaid" pattern="[0-9]*" placeholder="Amount"/>
+<br><br>
+
+<input type="submit" value="Confirm Payment" />  
+</form> -->
+
+<script>
+
+/**
+ * Checks to make sure the form for paying a bill is correctly filled out before transaction is stored
+ * @pre input sent to be checked 
+ * @post returns bool for input validity
+ * @param payerID (amount to be paid)
+ */
+function required()  
+{  
+    var totalPaid = document.forms["form1"]["totalPaid"].value;
+    
+    if (totalPaid == "")
+    {
+        alert("Please enter an amount.");
+        return false;
+    }
+  
+    return true;   
+ 
+}  
+
+</script>
+
+
+
+<!-- <?php $mysqli->close(); ?>-->
+</body>
+</html>
+ 

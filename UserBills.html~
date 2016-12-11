@@ -1,0 +1,41 @@
+<?php
+/*
+*	View session, ensure user logged in
+*/
+include('Session.php');
+
+if($_SESSION['GroupAdmin'] == '')
+{
+	header('Location: Home.html');
+}
+?>
+
+<html>
+<body>
+<!--Create table updated to stored database information-->
+<h1>Welcome <?php echo $_SESSION['PayerID']; ?></h1> 
+      <table >
+      <thead>
+      <col width="200">
+      <col width="100">
+      <col width="100">
+      <col width="100">
+        <tr>
+          <th align = "left">Bills </th>
+          <th align = "left">Amount Owed </th>
+          <th align = "left">Amount Paid </th>
+          <th align = "left">Due Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php include 'UserBills.php';?>
+      </tbody>
+    </table>
+    <br>
+
+<br><br><br>
+
+
+</body>
+
+</html>

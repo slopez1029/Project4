@@ -1,0 +1,42 @@
+<?php
+
+/*
+*	View session, ensure user logged in
+*/
+include('Session.php');
+
+if($_SESSION['GroupAdmin'] == '')
+{
+	header('Location: Home.html');
+}
+?>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Notifications</title>
+</head>
+<body>
+<!--Lists bills and payments, payments made by other users to be confirmed-->
+<form action="ConfirmPayment.php" method="post" id="table" name = "form" >
+<h1>Welcome <?php echo $_SESSION['PayerID']; echo ", "; echo $_SESSION['GroupName'];?></h1> 
+      <table cellspacing = "20">
+      <thead>
+      <col width = "250" >
+        <tr>
+          <th align = "left">Payments</th>
+          <th>Confirm?<th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php include 'Notifications.php';?>
+      </tbody>
+    </table>
+    <br>
+    <input type="submit" value="Confirm Payment(s)" />  
+</form>    
+<br><br><br>
+<p><a href="Home.html">Home</a></p>
+
+</body>
+</html>
+
